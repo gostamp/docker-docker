@@ -1,0 +1,49 @@
+---
+schemaVersion: 2.0.0
+
+metadataTest:
+  env:
+    - key: APP_GID
+      value: "10001"
+
+    - key: APP_UID
+      value: "10001"
+
+    - key: APP_HOME
+      value: /home/app
+
+    - key: APP_DIR
+      value: /app
+
+    - key: APP_USER
+      value: app
+
+  cmd:
+    - /app/bin/command.sh
+
+  entrypoint:
+    - /app/bin/entrypoint.sh
+
+  workdir: /app
+
+fileExistenceTests:
+  - name: /app/bin/command.sh
+    path: /app/bin/command.sh
+    shouldExist: true
+    permissions: -rwxr-xr-x
+    uid: 10001
+    gid: 10001
+
+  - name: /app/bin/entrypoint.sh
+    path: /app/bin/entrypoint.sh
+    shouldExist: true
+    permissions: -rwxr-xr-x
+    uid: 10001
+    gid: 10001
+
+  - name: /home/app/.bashrc
+    path: /home/app/.bashrc
+    shouldExist: true
+    permissions: -rw-r--r--
+    uid: 10001
+    gid: 10001

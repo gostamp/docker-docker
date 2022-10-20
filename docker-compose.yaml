@@ -1,0 +1,40 @@
+---
+version: "3.8"
+
+services:
+  app:
+    image: ${APP_REGISTRY}/${APP_NAME}:${APP_TAG}
+    build:
+      cache_from:
+        - ${APP_REGISTRY}/${APP_NAME}:${APP_TAG}
+      context: .
+      # These only get used when running `docker buildx bake` (in CI).
+      x-bake:
+        cache-from:
+          - type=gha,scope=buildkit
+        cache-to:
+          - type=gha,scope=buildkit,mode=max
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    environment:
+      - APP_ENV
+      - APP_NAME
+      - APP_REGISTRY
+      - APP_TAG
+      - APP_USER
+    hostname: ${APP_NAME}
+    init: true
+    user: ${APP_USER}
+    volumes:
+      # Allow the container to talk to the docker daemon on the host OS
+      # so we can use container-structure-test.
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      # Persist home dir content (bash history, caches, etc).
+      - home-data:${APP_HOME}
+      - .:/app:delegated
+
+volumes:
+  home-data: {}

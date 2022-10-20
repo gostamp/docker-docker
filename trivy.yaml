@@ -1,0 +1,36 @@
+timeout: 5m
+
+# exit code when any security issues are found
+exit-code: 1
+
+# severities of security issues to be displayed
+severity:
+  - HIGH
+  - CRITICAL
+
+scan:
+  security-checks:
+    # - secret
+    - vuln
+
+  skip-files:
+    # Project is in "maintenance mode" without auto dependency updates.
+    # Doesn't seem like any of the vulns are going to be fixed anytime soon.
+    # See:
+    # - https://github.com/GoogleContainerTools/container-structure-test/issues/279
+    # - https://github.com/GoogleContainerTools/container-structure-test/issues/309
+    - /usr/local/bin/container-structure-test
+
+    # Sort of the same deal here :(
+    # See:
+    # - https://github.com/goodwithtech/dockle/issues/90
+    # - https://github.com/goodwithtech/dockle/issues/185
+    - /usr/local/bin/dockle
+
+    # The Trivy folks seem pretty response. This should be fixed soon.
+    # - https://github.com/aquasecurity/trivy/pull/3046
+    - /usr/local/bin/trivy
+
+vulnerability:
+  # don't bother reporting vulns that are not actionable
+  ignore-unfixed: true

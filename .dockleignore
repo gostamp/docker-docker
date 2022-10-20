@@ -1,0 +1,8 @@
+# Enable Content trust for Docker
+# (planning on using cosign instead)
+# https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#cis-di-0005
+CIS-DI-0005
+
+# Add HEALTHCHECK instruction to the container image
+# https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#cis-di-0006
+CIS-DI-0006
