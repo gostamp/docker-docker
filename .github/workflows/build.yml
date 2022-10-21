@@ -1,0 +1,23 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: make build APP_UID=$(id -u) APP_GID=$(id -g)
+
+      - name: Test
+        run: make test APP_UID=$(id -u) APP_GID=$(id -g)
+
+      - name: Lint
+        run: make lint APP_UID=$(id -u) APP_GID=$(id -g)
