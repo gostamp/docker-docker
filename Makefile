@@ -6,6 +6,9 @@ endif
 include .env
 export $(shell sed 's/=.*//' .env)
 
+# Always use buildkit
+export COMPOSE_DOCKER_CLI_BUILD := 1
+export DOCKER_BUILDKIT := 1
 
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
