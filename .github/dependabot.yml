@@ -8,6 +8,10 @@ updates:
   - package-ecosystem: "docker"
     directory: "/" # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: daily
     assignees:
       - twelvelabs
+    commit-message:
+      prefix: chore
+      prefix-development: chore
+      include: scope
