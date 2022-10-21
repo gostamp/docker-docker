@@ -25,7 +25,7 @@ EOF
 
 FROM aquasec/trivy:0.32.1 AS trivy
 
-FROM goodwithtech/dockle:v0.4.7 AS dockle
+FROM goodwithtech/dockle:v0.4.8 AS dockle
 
 FROM alpine:3.16 AS final
 
