@@ -5,13 +5,14 @@
 
 version: 2
 updates:
-  - package-ecosystem: "docker"
-    directory: "/" # Location of package manifests
+  - package-ecosystem: docker
+    directory: /
     schedule:
       interval: daily
     assignees:
       - twelvelabs
+    # Use conventional commits prefixes.
     commit-message:
-      prefix: chore
+      prefix: fix
       prefix-development: chore
       include: scope
