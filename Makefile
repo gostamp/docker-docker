@@ -44,6 +44,7 @@ clean: ## Clean the app
 
 .PHONY: release
 release: ## Create a new GitHub release
+	git fetch --all --tags
 	@if [[ "$$(svu next)" == "$$(svu current)" ]]; then echo "Nothing to release!" && exit 1; fi
 	gh release create "$$(svu next)" --generate-notes
 
@@ -52,8 +53,11 @@ release: ## Create a new GitHub release
 
 .PHONY: setup
 setup: ## Setup everything needed for local development
-	@if command -v docker-compose >/dev/null 2>&1; then echo "Found docker-compose"; else echo "Unable to find docker-compose!"; exit 1; fi
-	@echo "Building..." && echo "" && $(MAKE) docker-build
+	@if command -v docker >/dev/null 2>&1; then echo "Found docker"; else echo "Unable to find docker!"; exit 1; fi
+	@if command -v gh >/dev/null 2>&1; then echo "Found gh"; else echo "Unable to find gh!"; exit 1; fi
+	@if command -v git >/dev/null 2>&1; then echo "Found git"; else echo "Unable to find git!"; exit 1; fi
+	@if command -v svu >/dev/null 2>&1; then echo "Found svu"; else echo "Unable to find svu!"; exit 1; fi
+	@echo "" && echo "Building..." && echo "" && $(MAKE) build
 
 .PHONY: shell
 shell: ## Shell into the container
