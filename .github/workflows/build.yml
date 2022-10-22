@@ -14,10 +14,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build
-        run: make build APP_UID=$(id -u) APP_GID=$(id -g)
+        run: make build
 
       - name: Test
-        run: make test APP_UID=$(id -u) APP_GID=$(id -g)
+        run: make test APP_USER=root
 
       - name: Lint
-        run: make lint APP_UID=$(id -u) APP_GID=$(id -g)
+        run: make lint
