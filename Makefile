@@ -18,28 +18,28 @@ SHELL := /bin/bash
 
 .PHONY: build
 build: ## Build the app
-	docker-compose build app
+	docker compose build app
 
 .PHONY: inspect
 inspect:
-	docker inspect $$(docker-compose config --images app)
+	docker inspect $$(docker compose config --images app)
 
 .PHONY: run
 run: ## Run the app
-	docker-compose run --rm app ./bin/command.sh
+	docker compose run --rm app ./bin/command.sh
 
 .PHONY: test
 test: APP_ENV := test
 test: ## Test the app
-	docker-compose run --rm app ./bin/test.sh
+	docker compose run --rm app ./bin/test.sh
 
 .PHONY: lint
 lint: ## Lint the app
-	docker-compose run --rm app ./bin/lint.sh
+	docker compose run --rm app ./bin/lint.sh
 
 .PHONY: clean
 clean: ## Clean the app
-	docker-compose down -v
+	docker compose down -v
 	rm -f .env
 
 
@@ -52,7 +52,7 @@ setup: ## Setup everything needed for local development
 
 .PHONY: shell
 shell: ## Shell into the container
-	docker-compose run --rm app bash
+	docker compose run --rm app bash
 
 # Via https://www.thapaliya.com/en/writings/well-documented-makefiles/
 # Note: The `##@` comments determine grouping
