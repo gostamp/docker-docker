@@ -69,6 +69,12 @@ EOF
 COPY --chown="${APP_UID}:${APP_GID}" ./etc/bashrc.sh "${APP_HOME}/.bashrc"
 COPY --chown="${APP_UID}:${APP_GID}" ./bin/* "${APP_DIR}/bin/"
 
+LABEL org.opencontainers.image.description="Docker image testing tools"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.source="https://github.com/gostamp/docker-image-tools"
+LABEL org.opencontainers.image.title="image-tools"
+LABEL org.opencontainers.image.vendor="GoStamp"
+
 WORKDIR "${APP_DIR}"
 USER "${APP_USER}"
 ENTRYPOINT ["/app/bin/entrypoint.sh"]

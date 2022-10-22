@@ -6,6 +6,14 @@ endif
 include .env
 export $(shell sed 's/=.*//' .env)
 
+# Always use buildkit
+export COMPOSE_DOCKER_CLI_BUILD := 1
+export DOCKER_BUILDKIT := 1
+
+# Defaults for GH actions
+ifeq ($(GITHUB_ACTIONS),true)
+  export APP_TAG := $(GITHUB_SHA)
+endif
 
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
@@ -14,11 +22,8 @@ SHELL := /bin/bash
 ##@ App
 
 .PHONY: build
-build: docker-build
-
-.PHONY: lint
-lint: ## Lint app code
-	docker-compose run --rm app ./bin/lint.sh
+build: ## Build the app
+	docker-compose build app
 
 .PHONY: run
 run: ## Run the app
@@ -29,25 +34,25 @@ test: APP_ENV := test
 test: ## Test the app
 	docker-compose run --rm app ./bin/test.sh
 
+.PHONY: lint
+lint: ## Lint the app
+	docker-compose run --rm app ./bin/lint.sh
 
-##@ Docker
-
-.PHONY: docker-build
-docker-build: ## Build the docker image
-	docker-compose build app
-
-.PHONY: docker-pull
-docker-pull: ## Pull the docker image from the registry
-	docker-compose pull app
-
-.PHONY: docker-push
-docker-push: ## Push the docker image to the registry
-	docker-compose push app
-
-.PHONY: docker-clean
-docker-clean: ## Cleanup containers and persistent volumes
+.PHONY: clean
+clean: ## Clean the app
 	docker-compose down -v
 	rm -f .env
+
+
+##@ CI
+
+.PHONY: ci-build
+ci-build: ## Build the docker image
+	docker buildx bake --load --set app.platform=linux/amd64
+
+.PHONY: ci-push
+ci-push: ## Push the docker image to the registry
+	docker buildx bake --push
 
 
 ##@ Other

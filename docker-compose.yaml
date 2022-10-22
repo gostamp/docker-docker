@@ -6,7 +6,7 @@ services:
     image: ${APP_REGISTRY}/${APP_NAME}:${APP_TAG}
     build:
       cache_from:
-        - ${APP_REGISTRY}/${APP_NAME}:${APP_TAG}
+        - ${APP_REGISTRY}/${APP_NAME}:latest
       context: .
       # These only get used when running `docker buildx bake` (in CI).
       x-bake:
