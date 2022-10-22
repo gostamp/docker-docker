@@ -42,6 +42,11 @@ clean: ## Clean the app
 	docker compose down -v
 	rm -f .env
 
+.PHONY: release
+release: ## Create a new GitHub release
+	@if [[ "$$(svu next)" == "$$(svu current)" ]]; then echo "Nothing to release!" && exit 1; fi
+	gh release create "$$(svu next)" --generate-notes
+
 
 ##@ Other
 
