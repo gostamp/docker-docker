@@ -38,6 +38,7 @@ jobs:
           cache-from: |
             type=gha
             type=registry,ref=${{ env.IMAGE_NAME }}:latest
+            type=registry,ref=${{ env.IMAGE_NAME }}:buildcache
           cache-to: |
             type=gha,mode=max
           tags: ${{ env.IMAGE_NAME }}:latest
