@@ -6,17 +6,8 @@ services:
     image: ${APP_REGISTRY}/${APP_NAME}:${APP_TAG}
     build:
       cache_from:
-        - ${APP_REGISTRY}/${APP_NAME}:latest
+        - ${APP_REGISTRY}/${APP_NAME}:${APP_TAG}
       context: .
-      # These only get used when running `docker buildx bake` (in CI).
-      x-bake:
-        cache-from:
-          - type=gha,scope=buildkit
-        cache-to:
-          - type=gha,scope=buildkit,mode=max
-        platforms:
-          - linux/amd64
-          - linux/arm64
     environment:
       - APP_ENV
       - APP_NAME

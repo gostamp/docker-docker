@@ -10,11 +10,6 @@ export $(shell sed 's/=.*//' .env)
 export COMPOSE_DOCKER_CLI_BUILD := 1
 export DOCKER_BUILDKIT := 1
 
-# Defaults for GH actions
-ifeq ($(GITHUB_ACTIONS),true)
-  export APP_TAG := $(GITHUB_SHA)
-endif
-
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
 
@@ -24,6 +19,10 @@ SHELL := /bin/bash
 .PHONY: build
 build: ## Build the app
 	docker-compose build app
+
+.PHONY: inspect
+inspect:
+	docker inspect $$(docker-compose config --images app)
 
 .PHONY: run
 run: ## Run the app
@@ -42,17 +41,6 @@ lint: ## Lint the app
 clean: ## Clean the app
 	docker-compose down -v
 	rm -f .env
-
-
-##@ CI
-
-.PHONY: ci-build
-ci-build: ## Build the docker image
-	docker buildx bake --load --set app.platform=linux/amd64
-
-.PHONY: ci-push
-ci-push: ## Push the docker image to the registry
-	docker buildx bake --push
 
 
 ##@ Other
