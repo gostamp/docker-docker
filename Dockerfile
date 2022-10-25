@@ -25,7 +25,7 @@ EOF
 
 FROM aquasec/trivy:0.32.1 AS trivy
 
-FROM goodwithtech/dockle:v0.4.8 AS dockle
+FROM goodwithtech/dockle:v0.4.9 AS dockle
 
 FROM alpine:3.16 AS final
 
@@ -68,6 +68,8 @@ EOF
 
 COPY --chown="${APP_UID}:${APP_GID}" ./etc/bashrc.sh "${APP_HOME}/.bashrc"
 COPY --chown="${APP_UID}:${APP_GID}" ./bin/* "${APP_DIR}/bin/"
+
+HEALTHCHECK NONE
 
 WORKDIR "${APP_DIR}"
 USER "${APP_USER}"

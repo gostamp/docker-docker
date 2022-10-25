@@ -10,14 +10,12 @@ APP_TAG="${APP_TAG?}"
 image="${APP_REGISTRY}/${APP_NAME}:${APP_TAG}"
 
 echo ""
-echo "[test] container-structure-test"
-container-structure-test test \
-    --config "/app/tests/structure-test.yaml" \
-    --image "${image}"
+echo "[test] trivy"
+trivy image --format sarif --output trivy.sarif "${image}"
 
 echo ""
-echo "[test] dive"
-dive --ci "${image}"
+echo "[test] dockle"
+dockle --format sarif --output dockle.sarif "${image}"
 
 echo ""
 echo "DONE"
