@@ -28,6 +28,10 @@ inspect:
 run: ## Run the app
 	docker compose run --rm app ./bin/command.sh
 
+.PHONY: scan
+scan: ## Scan the app for security issues
+	docker compose run --rm app ./bin/scan.sh
+
 .PHONY: test
 test: APP_ENV := test
 test: ## Test the app
