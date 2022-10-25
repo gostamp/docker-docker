@@ -23,7 +23,7 @@ RUN <<EOF
         -ldflags="-s -w -X main.version=$(git rev-parse HEAD)"
 EOF
 
-FROM aquasec/trivy:0.32.1 AS trivy
+FROM aquasec/trivy:0.33.0 AS trivy
 
 FROM goodwithtech/dockle:v0.4.9 AS dockle
 
