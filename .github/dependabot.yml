@@ -9,10 +9,15 @@ updates:
     directory: /
     schedule:
       interval: daily
-    assignees:
-      - twelvelabs
-    # Use conventional commits prefixes.
     commit-message:
       prefix: fix
       prefix-development: chore
+      include: scope
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: fix
       include: scope
