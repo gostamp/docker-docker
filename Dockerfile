@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM golang:1.19.2-alpine3.16 AS dive
+FROM golang:1.19.3-alpine3.16 AS dive
 
 RUN mkdir -p /go/src/github.com/wagoodman/dive
 WORKDIR /go/src/github.com/wagoodman/dive
