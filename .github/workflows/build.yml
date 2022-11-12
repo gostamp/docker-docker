@@ -44,7 +44,7 @@ jobs:
             type=registry,ref=${{ env.IMAGE_NAME }}:latest
             type=registry,ref=${{ env.IMAGE_NAME }}:buildcache
           cache-to: |
-            type=gha,mode=max
+            type=gha
           tags: ${{ env.IMAGE_NAME }}:latest
 
       - name: Inspect
