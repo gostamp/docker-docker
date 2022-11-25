@@ -1,27 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM golang:1.19.3-alpine3.16 AS dive
-
-RUN mkdir -p /go/src/github.com/wagoodman/dive
-WORKDIR /go/src/github.com/wagoodman/dive
-
-SHELL ["/bin/sh", "-o", "errexit", "-c"]
-RUN <<EOF
-    apk update
-    apk add --no-cache \
-        "git~=2.36.3" \
-        "gcc~=11.2.1" \
-        "musl-dev~=1.2.3"
-
-    git clone --depth 1 https://github.com/jauderho/dive.git /go/src/github.com/wagoodman/dive
-
-    export CGO_ENABLED=0
-    go get -u all
-    go build -v \
-        -o /usr/local/bin/dive \
-        -trimpath \
-        -buildmode=pie \
-        -ldflags="-s -w -X main.version=$(git rev-parse HEAD)"
-EOF
+FROM jauderho/dive:git AS dive
 
 FROM aquasec/trivy:0.34.0 AS trivy
 
