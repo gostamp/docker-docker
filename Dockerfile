@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM jauderho/dive:v0.10.0 AS dive
+FROM jauderho/dive:git AS dive
 
 FROM aquasec/trivy:0.34.0 AS trivy
 
