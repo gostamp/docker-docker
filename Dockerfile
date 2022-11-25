@@ -5,14 +5,14 @@ FROM aquasec/trivy:0.34.0 AS trivy
 
 FROM goodwithtech/dockle:v0.4.9 AS dockle
 
-FROM alpine:3.16 AS final
+FROM alpine:3.17 AS final
 
 COPY --from=dive /usr/local/bin/dive /usr/local/bin/dive
 COPY --from=dockle /usr/bin/dockle /usr/local/bin/dockle
 COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/trivy
 
 RUN apk add --no-cache \
-    "bash~=5.1.16"
+    "bash~=5.2.9"
 
 ARG APP_GID
 ARG APP_UID
