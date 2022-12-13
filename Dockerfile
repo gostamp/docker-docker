@@ -12,7 +12,7 @@ COPY --from=dockle /usr/bin/dockle /usr/local/bin/dockle
 COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/trivy
 
 RUN apk add --no-cache \
-    "bash~=5.2.9"
+    "bash~=5.2.12"
 
 ARG APP_GID
 ARG APP_UID
