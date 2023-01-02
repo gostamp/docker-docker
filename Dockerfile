@@ -3,7 +3,7 @@ FROM jauderho/dive:git AS dive
 
 FROM aquasec/trivy:0.36.0 AS trivy
 
-FROM goodwithtech/dockle:v0.4.9 AS dockle
+FROM goodwithtech/dockle:v0.4.10 AS dockle
 
 FROM alpine:3.17 AS final
 
