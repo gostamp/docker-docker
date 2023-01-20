@@ -60,11 +60,11 @@ jobs:
         run: make scan
 
       - name: Upload dockle.sarif
-        uses: github/codeql-action/upload-sarif@959cbb7472c4d4ad70cdfe6f4976053fe48ab394 # pin@v2
+        uses: github/codeql-action/upload-sarif@a34ca99b4610d924e04c68db79e503e1f79f9f02 # pin@v2
         with:
           sarif_file: dockle.sarif
 
       - name: Upload trivy.sarif
-        uses: github/codeql-action/upload-sarif@959cbb7472c4d4ad70cdfe6f4976053fe48ab394 # pin@v2
+        uses: github/codeql-action/upload-sarif@a34ca99b4610d924e04c68db79e503e1f79f9f02 # pin@v2
         with:
           sarif_file: trivy.sarif
